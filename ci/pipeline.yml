@@ -1,11 +1,11 @@
 ---
 resources:
-- name: movie-fun
+- name: movie-fun-source
   type: git
   source:
     uri: https://github.com/vivekvl/apps-movie-fun-code
     branch: concourse-ci
-- name: movie-fun
+- name: deploy-movie-fun
   type: cf
   source:
     api: api.system.dev.digifabricpcf.com
@@ -16,34 +16,15 @@ resources:
     skip_cert_check: true
 
 jobs:
-- name: test
-  public: true
-  plan:
-  - get: attendee-service-source
-    trigger: true
-  - task: test
-    file: attendee-service-source/ci/tasks/test.yml
-
 - name: deploy
   public: true
   plan:
-  - get: attendee-service-source
+  - get: movie-fun-source
     trigger: true
-    passed: [test]
+    #passed: [test]
   - task: package
-    file: attendee-service-source/ci/tasks/package.yml
-  - put: deploy-attendee-service
+    file: movie-fun-source/ci/tasks/package.yml
+  - put: deploy-movie-fun
     params:
-      manifest: attendee-service-source/manifest.yml
-      path: package-output/attendee-service.jar
-
-- name: smoke_test
-  public: true
-  plan:
-  - get: attendee-service-source
-    trigger: true
-    passed: [deploy]
-  - task: smoke_test
-    file: attendee-service-source/ci/tasks/smoke-test.yml
-    params:
-      ATTENDEE_SERVICE_URL: http://attendee-service-orchitic-bast.app.dev.digifabricpcf.com 
+      manifest: movie-fun-source/manifest.yml
+      path: package-output/moviefun.war
