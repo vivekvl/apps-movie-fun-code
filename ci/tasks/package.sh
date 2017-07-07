@@ -3,7 +3,7 @@
 set -ex
 
 pushd movie-fun-source
-  echo "Packaging JAR"
+  echo "Packaging war"
   ./mvnw clean package -DskipTests
 popd
 
