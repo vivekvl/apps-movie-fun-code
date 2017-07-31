@@ -38,10 +38,19 @@ task closeTunnel {
     }
 }
 
+//task cfMigrate(type: FlywayMigrateTask, dependsOn: openTunnel) {
+//    if (System.env.CF_MIGRATE) {
+//        extension = setupProdFlywayExtension(new FlywayExtension(), "album-service")
+//    }
+//}
+
 task cfMigrate(type: FlywayMigrateTask, dependsOn: openTunnel) {
-    if (System.env.CF_MIGRATE) {
-        extension = setupProdFlywayExtension(new FlywayExtension(), "album-service")
-    }
+    extension = new FlywayExtension(
+            url: "jdbc:mysql://127.0.0.1:63306/cf_76fce85e_a270_426e_a16e_56fc61f56970",
+            user: "ZUODGglAM9IO5Ci9",
+            password: "lPZ1MBTJpQs4E075",
+            outOfOrder: false
+    )
 }
 
 cfMigrate.finalizedBy closeTunnel
