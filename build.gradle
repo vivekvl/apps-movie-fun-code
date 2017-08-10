@@ -76,7 +76,7 @@ task setupPcfEnv {
         [
             "cf create-service p-mysql 100mb movie-database",
             "cf create-service p-mysql 100mb album-database",
-            "cf create-service p-identity basic-sso movie-fun-sso",
+            "cf create-service p-identity auth-domain movie-fun-sso",
         ].each { println it.execute().text }
     }
 }

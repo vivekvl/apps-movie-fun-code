@@ -46,9 +46,9 @@ task closeTunnel {
 
 task cfMigrate(type: FlywayMigrateTask, dependsOn: openTunnel) {
     extension = new FlywayExtension(
-            url: "jdbc:mysql://127.0.0.1:63306/cf_76fce85e_a270_426e_a16e_56fc61f56970",
-            user: "ZUODGglAM9IO5Ci9",
-            password: "lPZ1MBTJpQs4E075",
+            url: "jdbc:mysql://127.0.0.1:63306/cf_6deb893e_52df_4e43_84d1_62eea8120f91",
+            user: "X43QXwQhZ3REeSnr",
+            password: "NaM35SHihg4Z5hny",
             outOfOrder: false
     )
 }
